@@ -1,15 +1,15 @@
 import scrapy
-from news_harvester.items import ResultItem
+from reviews_harvester.items import ResultItem
 import re
 import base64
 import os.path
 
 
-class GoogleNewsSpider(scrapy.Spider):
-    name = "google_news"
+class GoogleReviewsSpider(scrapy.Spider):
+    name = "google_reviews"
     start_urls = []
     base_url = "https://www.google.nl/search?hl=en&gl=us&ie=UTF-8&num=100&q={0}&oq={1}"
-    with open("news_harvester/product_categories.txt") as f:
+    with open("reviews_harvester/product_categories.txt") as f:
         for line in f:
             line = line.strip() + " reviews"
             if line == "":
@@ -28,7 +28,7 @@ class GoogleNewsSpider(scrapy.Spider):
         return m.group(1)
 
     def generate_filename(self, link):
-        return "news_harvester/output/" + base64.urlsafe_b64encode(link) + ".html"
+        return "reviews_harvester/output/" + base64.urlsafe_b64encode(link) + ".html"
 
     def parse(self, response):
         for href in response.xpath('//a[@class="fl"]/@href'):  # pages 2...n-1

@@ -58,4 +58,4 @@ docs/_build/
 target/
 
 epoms/.scrapy
-epoms/news_harvester/output
+epoms/reviews_harvester/output

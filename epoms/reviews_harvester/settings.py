@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for news_harvester project
+# Scrapy settings for reviews_harvester project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'news_harvester'
+BOT_NAME = 'reviews_harvester'
 
-SPIDER_MODULES = ['news_harvester.spiders']
-NEWSPIDER_MODULE = 'news_harvester.spiders'
+SPIDER_MODULES = ['reviews_harvester.spiders']
+NEWSPIDER_MODULE = 'reviews_harvester.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'news_harvester (+http://www.yourdomain.com)'
+#USER_AGENT = 'reviews_harvester (+http://www.yourdomain.com)'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS=32
@@ -44,13 +44,13 @@ DOWNLOAD_DELAY=0.5
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'news_harvester.middlewares.MyCustomSpiderMiddleware': 543,
+#    'reviews_harvester.middlewares.MyCustomSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'news_harvester.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'reviews_harvester.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -62,7 +62,7 @@ DOWNLOAD_DELAY=0.5
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'news_harvester.pipelines.SomePipeline': 300,
+#    'reviews_harvester.pipelines.SomePipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
