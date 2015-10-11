@@ -8,7 +8,7 @@
 import scrapy
 
 
-class NewsHarvesterItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class ResultItem(scrapy.Item):
+    title = scrapy.Field()
+    link = scrapy.Field()
+    filename = scrapy.Field()
