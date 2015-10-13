@@ -1,11 +1,15 @@
 import nltk
 import re
 import time
+from linguistic_utility import LinguisticUtility
 
 class EntityExtract():
 
+    def __init__( self ):
+        self.ling = LinguisticUtility()
+
     def extract_name( self, text ):
-        # TODO: Normalise text
+        text = self.ling.remove_diacritics( text )
 
         tokenized = nltk.word_tokenize(text)
 
