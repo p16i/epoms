@@ -1,0 +1,22 @@
+---
+datasource:
+    news: '/Users/heytitle/Downloads/output'
+
+index_schema:
+    news:
+        properties:
+            title:
+                type: string
+            url:
+                type: string
+                index: not_analyzed
+            sitename:
+                type: string
+            published_time:
+                type: date
+            content:
+                type: string
+            entities:
+                type: string
+                index: not_analyzed
+
