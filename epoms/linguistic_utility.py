@@ -56,3 +56,18 @@ class LinguisticUtility():
         text = text.strip()
 
         return text
+
+    def clean_up_tweet( self, text ):
+        tokens = text.split(' ');
+        res = []
+        for t in tokens:
+            if( re.match(r'RT', t) ):
+                res.append('[RT]')
+            elif ( re.match(r'https?://.+', t) ):
+                res.append('[URL]')
+            elif ( re.match(r'@.+', t)):
+                res.append('[MENTION]')
+            else:
+                res.append(t)
+
+        return ' '.join(res)

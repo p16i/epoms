@@ -27,6 +27,7 @@ class News(BaseModel):
     def as_dict( self ):
         entities = json.loads(self.entities)
         return {
+            "id"    : self.id,
             "title" : self.title,
             "url"   : self.url,
             "sitename": self.content,
@@ -37,9 +38,22 @@ class News(BaseModel):
 
 class Tweet(BaseModel):
     pass
-    # id
-    # username
-    # body
-    # tweeted_time
-    # indexed_time
-    # polarity
+    id             = PrimaryKeyField()
+    username       = TextField()
+    body           = TextField()
+    _body          = TextField()
+    polarity       = BooleanField()
+    is_ad          = BooleanField()
+    published_time = DateTimeField()
+    indexed_time   = DateTimeField()
+    query          = TextField()
+
+    def as_dict( self ):
+        return {
+            "id"    : self.id,
+            "username" : self.username,
+            "body"   : self.body,
+            "polarity" : self.polarity,
+            "is_ad"   : self.is_ad,
+            "published_time": self.published_time
+        }
