@@ -1,5 +1,6 @@
 import unicodedata
 import sys
+import re
 
 NON_DECOMPOSABLE_CHARACTERS = {
         u'\N{Latin capital letter AE}': 'AE',
@@ -49,3 +50,9 @@ class LinguisticUtility():
                     b.append(' ')
         return ''.join(b)
 
+    def clean_up_space( self, text ):
+
+        text = re.sub(r'\s{2,}', ' ', text )
+        text = text.strip()
+
+        return text

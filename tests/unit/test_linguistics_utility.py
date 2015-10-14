@@ -7,7 +7,6 @@ class BaseTestCase(unittest.TestCase):
 
 class TestLinguisticUtility(BaseTestCase):
 
-    def remove_diacritics( self ):
-        # -*- coding: utf-8 -*-
-        text = self.ling.remove_diacritics(u'RØDE')
-        self.assertEqual( text, 'RODE' );
+    def test_clean_up_space( self ):
+        text = self.ling.clean_up_space( ' xxxx     b ')
+        self.assertEqual( text, 'xxxx b' )
