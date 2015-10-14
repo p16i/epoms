@@ -1,12 +1,12 @@
 from datetime import datetime
-from elasticsearch import Elasticsearch
 from epoms.config import EPOMSConfig
+from epoms.es import *
 
 INDEX_NAME = 'epoms'
 TIMEOUT = 300
 
 config = EPOMSConfig()
-es = Elasticsearch()
+es = ES().init()
 
 # TODO:
 # - Accept parameter and delete only index that specified.

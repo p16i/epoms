@@ -1,57 +1,43 @@
+# -*- coding: utf-8 -*-
+
 from datetime import datetime
-from elasticsearch import Elasticsearch
 from os import listdir
 from os.path import isfile, join
 from concurrent import futures
 
 from epoms.config import EPOMSConfig
 from epoms.news_extraction import NewsExtraction
+from epoms.es import *
+from epoms.db import *
 
 
 INDEX_NAME  = 'epoms'
 TIMEOUT     = 300
 MAX_WORKER  = 1
 
-es = Elasticsearch()
-config = EPOMSConfig()
-nn = NewsExtraction()
+config   = EPOMSConfig()
+es_nodes = config.get('elasticsearch')['nodes']
+es = ES().init()
 
-datasource = config.get('datasource')['news']
+news = (News()
+    .select()
+    .where( News.indexed_time >> None )
+    )
 
-files = []
-for f in listdir(datasource):
-    absolute_path = join(datasource, f )
-    if( isfile( absolute_path ) ):
-        files.append( absolute_path )
+def xstr(s):
+    if s is None:
+        return ''
+    return str(s.encode('utf-8'))
 
-# Sample document
-# doc = {
-#     'sitename': 'Jojo.com',
-#     'title': 'Elasticsearch: cool. bonsai cool.',
-#     'published_time': datetime.now(),
-#     'content': 'Slow life by indexeeeer',
-#     'entities': ['Elasticsearch', 'Solar', 'Apache Spark' ]
-# }
-
-# res = es.index(index="epoms", doc_type='news', body=doc)
-# print(res['created'])
-
-print 'Indexing %d files' % len(files)
-
-def index_news( filename ):
-    print 'Indexing %s' % filename
+print 'Connecting %s' % ( es_nodes );
+print 'Indexing %d news' % ( news.count() )
+for n in news:
+    print 'Indexing [%5d] %s' % ( n.id, xstr(n.title) )
     res = ""
     try:
-        doc = nn.extract_news( filename )
-        res = es.index(index="epoms", doc_type='news', body=doc)
+        res = es.index(index="epoms", doc_type='news', body=n.as_dict())
     except Exception as exc:
-        print '--> Error %s' % filename
+        print '--> Error %s' % n.as_dict()
         print(exc)
-
-    return
-
-for f in files:
-    index_news( f )
-
 
 print 'DONE!'

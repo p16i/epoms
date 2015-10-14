@@ -2,6 +2,10 @@
 datasource:
     news: '/Users/heytitle/Downloads/output'
 
+elasticsearch:
+    nodes:
+        - localhost
+
 index_schema:
     news:
         properties:
@@ -19,6 +23,8 @@ index_schema:
             entities:
                 type: string
                 index: not_analyzed
+            relevant:
+                type: boolean
 
 
 db:
