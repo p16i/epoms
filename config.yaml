@@ -3,7 +3,7 @@ datasource:
     news: '/Users/heytitle/Downloads/output'
 
 elasticsearch:
-    nodes:
+-    nodes:
         - localhost
 
 index_schema:
@@ -26,6 +26,18 @@ index_schema:
             relevant:
                 type: boolean
 
+    tweet:
+        properties:
+            username:
+                type: string
+            body:
+                type: string
+            polarity:
+                type: boolean
+            is_ad:
+                type: boolean
+            published_time:
+                type: date
 
 db:
     user: root
