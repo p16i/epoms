@@ -1,4 +1,5 @@
 import unicodedata
+import sys
 
 NON_DECOMPOSABLE_CHARACTERS = {
         u'\N{Latin capital letter AE}': 'AE',
