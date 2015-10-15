@@ -2,6 +2,9 @@ import unicodedata
 import sys
 import re
 
+from nltk.tokenize import RegexpTokenizer
+from Levenshtein import *
+
 NON_DECOMPOSABLE_CHARACTERS = {
         u'\N{Latin capital letter AE}': 'AE',
         u'\N{Latin small letter ae}': 'ae',
@@ -18,7 +21,7 @@ NON_DECOMPOSABLE_CHARACTERS = {
         u'\N{Latin small letter h with stroke}': 'h',
         u'\N{Latin small letter dotless i}': 'i',
         u'\N{Latin small letter kra}': 'k',#
-        u'\N{Latin capital letter L with stroke}': 'L',
+
         u'\N{Latin small letter l with stroke}': 'l',
         u'\N{Latin capital letter Eng}': 'N', #
         u'\N{Latin small letter eng}': 'n', #
@@ -71,3 +74,24 @@ class LinguisticUtility():
                 res.append(t)
 
         return ' '.join(res)
+
+    def tokenizer( self, text ):
+
+        tokenizer = RegexpTokenizer(r'\w+')
+        tokenized = tokenizer.tokenize(text)
+
+        return tokenized
+
+    def choose_furthest_term( self, ref, t1, t2 ):
+        ref = unicode(ref)
+        t1  = unicode(t1)
+        t2  = unicode(t2)
+
+        d_t1 = distance( ref, t1 )
+        d_t2 = distance( ref, t2 )
+
+        if( d_t1 > d_t2 ):
+            return t1
+
+        return t2
+

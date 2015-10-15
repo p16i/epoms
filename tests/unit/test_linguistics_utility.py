@@ -12,8 +12,12 @@ class TestLinguisticUtility(BaseTestCase):
         self.assertEqual( text, 'xxxx b' )
 
     def test_clean_up_tweet( self ):
-        text = self.ling.clean_up_tweet( 'RE @heytitle YOYOYO http://t.com bb')
-        self.assertEqual( text, '[RE] [MENTION] YOYOYO [URL] bb' )
+        text = self.ling.clean_up_tweet( 'RT @heytitle YOYOYO http://t.com bb')
+        self.assertEqual( text, '[RT] [MENTION] YOYOYO [URL] bb' )
 
-        text = self.ling.clean_up_tweet( 'RE @heytitle @title ok!')
-        self.assertEqual( text, '[RE] [MENTION] [MENTION] ok!' )
+        text = self.ling.clean_up_tweet( 'RT @heytitle @title ok!')
+        self.assertEqual( text, '[RT] [MENTION] [MENTION] ok!' )
+
+    def test_choose_fartest_term( self ):
+        term =self.ling.choose_furthest_term( 'john mayer', 'John mayer', 'John Mayer' )
+        self.assertEqual( term, 'John Mayer' )
