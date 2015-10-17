@@ -19,12 +19,15 @@ class EntityExtract():
         entities = nltk.ne_chunk(tagged, binary=True )
         nodes = self.getNodes( entities, 'NE' )
 
+
         freq = dict();
         for n in nodes :
             if n in freq :
                 freq[n] = freq[n] + 1
             else:
                 freq[n] = 1
+
+        freq = self.merge_name( freq )
 
         return freq
 
