@@ -30,7 +30,8 @@ class News(BaseModel):
             "id"    : self.id,
             "title" : self.title,
             "url"   : self.url,
-            "sitename": self.content,
+            "sitename": self.sitename,
+            "content": self.content,
             "entities": entities.keys(),
             "relevant": self.relevant,
             "published_time": self.published_time
