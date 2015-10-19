@@ -31,7 +31,14 @@ for l in lines:
     else:
         graph[src] = [ dest ]
 
+node_depth = dict()
 def find_subtree( name, depth ):
+    if( name not in node_depth.keys() ):
+        node_depth[name] = depth
+    else:
+        if( node_depth[name] < depth ):
+            node_depth[name] = depth
+
     if( depth == 0 ):
         return []
     else:
@@ -40,6 +47,7 @@ def find_subtree( name, depth ):
             subtree = subtree + find_subtree( t, depth - 1 )
 
         return subtree
+
 
 tree = find_subtree( 'Philips', 2 )
 
@@ -71,7 +79,8 @@ for n in nodes:
     # TODO: Add pagerank here
     node = {
         'name': n,
-        'rank': ranks[n]
+        'rank': ranks[n],
+        'depth': node_depth[n]
     }
 
 
