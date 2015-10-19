@@ -73,7 +73,10 @@ if __name__ == "__main__":
 
     # Calculates and updates URL ranks continuously using PageRank algorithm.
     prev_max = 0
-    while (1 ):
+    iteration = 1
+    while (1):
+
+        print(">> Iteration : "+str(iteration))
         # Calculates URL contributions to the rank of other URLs.
         contribs = links.join(ranks).flatMap(
             lambda url_urls_rank: computeContribs(url_urls_rank[1][0], url_urls_rank[1][1]))
@@ -85,11 +88,13 @@ if __name__ == "__main__":
 
         cur_max = count.collect()[0][1]
 
+
         if( abs( cur_max - prev_max ) < 0.0001 ):
             break
         else:
             prev_max = cur_max
 
+        iteration = iteration + 1
 
 
     ranks = ranks.sortBy( lambda r: -r[1] )
