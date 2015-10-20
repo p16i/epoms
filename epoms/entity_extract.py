@@ -12,13 +12,14 @@ class EntityExtract():
     def extract_name( self, text ):
 
         text = self.ling.remove_diacritics( text )
+        text = text.replace( '\n', ' newline ' )
+
         tokenized = self.ling.tokenizer( text )
 
         tagged = nltk.pos_tag(tokenized)
 
         entities = nltk.ne_chunk(tagged, binary=True )
         nodes = self.getNodes( entities, 'NE' )
-
 
         freq = dict();
         for n in nodes :
