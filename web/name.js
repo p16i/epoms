@@ -81,7 +81,7 @@ d3.json( filename + ".json", function(error, graph) {
         })
         .attr("y", ".31em")
         .text(function(d) {
-            if( d.depth > 0 ){
+            if(1){
                 return d.name;
             }
         });
