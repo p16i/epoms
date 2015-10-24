@@ -15,11 +15,11 @@ from sklearn.manifold import MDS
 import csv
 
 
-def read_tweets():
+def read_tweets(path):
     print "Reading tweets"
-    with open('twitter_search_20.10.2015.csv', 'rb') as csvfile:
+    with open(path, 'rb') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
-        tweets = [row[1].decode('utf8') for row in spamreader if (len(row) > 1)]
+        tweets = [row[3].decode('utf8') for row in spamreader if (len(row) > 1)]
     return tweets
 
 
@@ -87,8 +87,8 @@ def print_clusters():
             print(' %s' % top_term)
         print "\n\n"
 
-        # print("Cluster %d tweets:" % i)
-        # for o in df.ix[i]['tweet'].values.tolist():
-        #     print(o)
-        # print "\n\n"
+        print("Cluster %d tweets:" % i)
+        for o in df.ix[i]['tweet'].values.tolist()[:10]:
+            print(o)
+        print "\n\n"
 
