@@ -25,7 +25,7 @@ mode = sys.argv[1]
 # 1 = extract name from one sentence
 # all = whole text
 
-news = (News().select().limit(200))
+news = (News().select())
 
 def merge_sentence( sentences, mode ):
     start = 0
@@ -62,9 +62,14 @@ for n in news:
             names = en.extract_name(s)
             keys = names.keys()
             for i in range(len(keys)):
+                name1, created = Name().get_or_create( name=keys[i] )
                 orig = keys[i].replace(' ','_')
                 for j in range(len(keys)):
                     if( i != j ):
+                        # Save graph to db
+                        name2, created = Name().get_or_create( name=keys[j] )
+                        Name_Graph.create( name1=name1, name2=name2,  doc_id=n.id )
+
                         dest = keys[j].replace( ' ', '_' )
                         print '### ',orig,dest
     except Exception as exc:

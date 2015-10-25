@@ -23,6 +23,7 @@ class News(BaseModel):
     relevant = BooleanField()
     published_time = DateTimeField()
     indexed_time = DateTimeField()
+    filename  = TextField()
 
     def as_dict( self ):
         entities = json.loads(self.entities)
@@ -58,3 +59,15 @@ class Tweet(BaseModel):
             "is_ad"   : self.is_ad,
             "published_time": self.published_time
         }
+
+class Name(BaseModel):
+    id        = PrimaryKeyField()
+    name      = TextField()
+    pagerank  = FloatField()
+
+
+class Name_Graph(BaseModel):
+    id        = PrimaryKeyField()
+    doc_id    = ForeignKeyField( News, to_field="id", db_column="doc_id", related_name='name_graph')
+    name1     = ForeignKeyField( Name, to_field="name", db_column="name1", related_name='outbound')
+    name2     = ForeignKeyField( Name, to_field="name", db_column="name2", related_name='inbound')
