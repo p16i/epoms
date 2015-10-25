@@ -8,14 +8,16 @@ Enterprise  Public Opinion Mining System
 ## Installation
 1. Install package requirements.
 
-```
-pip install -r requirements.txt
-```
-2. Downloads NLTK corpus.
-```
-./setup/nltk.py
-```
-3. Import database to MySQL. You can find database snapshot at `./setup/database`
+	```
+	pip install -r requirements.txt
+	```
+1. Downloads NLTK corpus.
+
+	```
+	./setup/nltk.py
+	```
+	
+1. Import database to MySQL. You can find database snapshot at `./setup/database`
 
 ## Tasks
 ### Content Extraction and Name Recognition
@@ -53,3 +55,4 @@ cd web && python -m SimpleHTTPServer
 
 # Then open http://localhost:8000/flare-name.html?file=data/<case_name>
 ```
+
