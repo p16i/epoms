@@ -23,7 +23,7 @@ from __future__ import print_function
 
 import re
 import sys
-from operator import add
+from operator import add, sub, abs
 
 from pyspark import SparkContext
 
@@ -69,6 +69,7 @@ if __name__ == "__main__":
     #       - URL2
     #       - URL3
     links = lines.map(lambda urls: parseNeighbors(urls)).distinct().groupByKey().cache()
+    total_links = links.count()
 
     # Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
     ranks = links.map(lambda url_neighbors: (url_neighbors[0], 1.0))
@@ -76,34 +77,34 @@ if __name__ == "__main__":
     total_links = ranks.count()
     ranks = ranks.map(lambda r: (r[0], r[1]/total_links))
 
-    print( '>> Total  Link' + str(total_links) )
-
     # Calculates and updates URL ranks continuously using PageRank algorithm.
-    prev_max = 0
     iteration = 1
+    old_ranks = ranks
+    error = sc.accumulator(0)
     while (1):
+
+        error.value = 0
 
         print(">> Iteration : "+str(iteration))
         # Calculates URL contributions to the rank of other URLs.
         contribs = links.join(ranks).flatMap(
             lambda url_urls_rank: computeContribs(url_urls_rank[1][0], url_urls_rank[1][1]))
 
+
         # Re-calculates URL ranks based on neighbor contributions.
         ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * ( 1 - damping ) + damping/total_links )
 
+        diff  = old_ranks.join(ranks).mapValues(lambda rank: abs( rank[0] - rank[1] ) )
+        diff.foreach( lambda r: error.add(r[1] ) )
 
+        print(">> Error : "+str(error.value))
 
-        count = ranks.map( lambda r: ( 1, r[1] ) ) \
-            .reduceByKey( lambda a, b: a if (a > b) else b )
+        old_ranks = ranks
 
-        cur_max = count.collect()[0][1]
-
-        print (">> Diff "+ str(abs( cur_max-prev_max )) )
-
-        if( abs( cur_max - prev_max ) < 0.000001 ):
+        if( error.value < 0.0001 ):
             break
         else:
-            prev_max = cur_max
+            old_ranks = ranks
 
         iteration = iteration + 1
 
