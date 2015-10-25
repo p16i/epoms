@@ -22,4 +22,4 @@ echo "Extracting name from documents" \
 && /usr/local/Cellar/apache-spark/1.3.1_1/bin/spark-submit pagerank.py "$output_graph" 0.9 && head "output-pagerank/part-00000" \
 && mv "output-pagerank/part-00000" $pagerank_output \
 && echo "Generating ./web/$case_name.json" \
-&& python scripts/json-name-graph.py $output_graph $pagerank_output  > "web/$case_name.json"
+&& python scripts/json-name-flare-graph.py $output_graph $pagerank_output  > "web/flare-$case_name.json" 
