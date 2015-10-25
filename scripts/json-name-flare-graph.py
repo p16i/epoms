@@ -64,7 +64,7 @@ def find_subtree( name, depth ):
         return flare_graph
 
 
-flare_graph = find_subtree( 'Philips', 5 )
+flare_graph = find_subtree( 'Philips', 3 )
 
 flare_graph['min_rank'] = min( ranks.values() )
 flare_graph['max_rank'] = max( ranks.values() )
@@ -72,5 +72,3 @@ flare_graph['max_rank'] = max( ranks.values() )
 
 
 print json.dumps(flare_graph)
-
-
