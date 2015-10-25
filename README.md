@@ -31,6 +31,7 @@ Enterprise  Public Opinion Mining System
 
 #### Action
 ```
+# Extract HTML document and put into database.
 python scripts/extract-news.py  <part_to_source_directory>
 ```
 
