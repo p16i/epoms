@@ -2,24 +2,55 @@ Enterprise  Public Opinion Mining System
 ==========================
 
 ## Requirements
+1. MySQL
+2. Apache Spark
 
-Package requirements are handled using pip. To install them do
+## Installation
+1. Install package requirements.
 
 ```
 pip install -r requirements.txt
 ```
 
-## Tests
+2. Downloads NLTK corpus.
+```
+./setup/nltk.py
+```
 
-Testing is set up using [pytest](http://pytest.org) and coverage is handled
-with the pytest-cov plugin.
 
-Run your tests with ```py.test``` in the root directory.
+## Tasks
+### Content Extraction and Name Recognition
+#### Related files
+```
+- epoms/news_extraction.py
+- epoms/entity_extract.py
+- epoms/linguistic_utility.py
+- scripts/extract-news.py
+```
 
-Coverage is ran by default and is set in the ```pytest.ini``` file.
-To see an html output of coverage open ```htmlcov/index.html``` after running the tests.
+#### Action
+```
+python scripts/extract-news.py  <part_to_source_directory>
+```
 
-## Travis CI
+### Pagerank computing
+#### Related files
+```
+- scripts/name-graph-pagerank.py
+- scripts/pagerank.py
+- scripts/json-name-flare-graph.py
+- web/flare-name.html
+- web/flare-name.js
+- web/data/*
+```
 
-There is a ```.travis.yml``` file that is set up to run your tests for python 2.7
-and python 3.2, should you choose to use it.
+#### Action
+```
+# Evaluation
+./scripts/evaluation-pagerank.sh <case_name> <how_many_sentences_to_form_relationship or all>
+
+# View the result
+cd web && python -m SimpleHTTPServer &&
+
+# Then open http://localhost:8000/flare-name.html?file=data/<case_name>
+```
