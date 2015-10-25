@@ -2,16 +2,11 @@ import numpy as np
 import pandas as pd
 import nltk
 import re
-import os
-import codecs
 from sklearn import feature_extraction
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-from sklearn.manifold import MDS
 import csv
 
 
@@ -58,7 +53,7 @@ def build_vocabulary():
 def get_vectorizer():
     print "\nGetting vectorizer"
     return(TfidfVectorizer(max_df=0.8, max_features=150000,
-                           min_df=0.01, stop_words='english',
+                           min_df=5, stop_words='english',
                            use_idf=True, tokenizer=tokenize_and_stem, ngram_range=(1, 1)))
 
 
@@ -75,20 +70,19 @@ def get_clusters(num_clusters):
 
 
 def print_clusters():
-    print("\nTop terms per cluster:\n")
     cluster_ordered_terms = km.cluster_centers_.argsort()[:, ::-1]  # sort words in cluster by proximity to centroid
 
     for i in range(num_clusters):
         print("Cluster %d words:" % i)
 
-        for term_i in cluster_ordered_terms[i, :6]:
+        for term_i in cluster_ordered_terms[i, :5]:
             top_term = vocab_df.ix[terms[term_i].split(' ')].values.tolist()[0][0]
             top_term = str(top_term).encode('utf-8', 'ignore')
             print(' %s' % top_term)
-        print "\n\n"
+        print "\n"
 
         print("Cluster %d tweets:" % i)
-        for o in df.ix[i]['tweet'].values.tolist()[:10]:
+        for o in df.ix[i]['tweet'].values.tolist()[:30]:
             print(o)
-        print "\n\n"
+        print "\n"
 
