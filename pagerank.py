@@ -45,11 +45,10 @@ def parseNeighbors(urls):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: pagerank <file> <lambda> <iterations>", file=sys.stderr)
+        print("Usage: pagerank <file> <lambda>", file=sys.stderr)
         exit(-1)
 
     damping = float(sys.argv[2])
-    # iteration     = int(sys.argv[3])
 
     print("""WARN: This is a naive implementation of PageRank and is
           given as an example! Please refer to PageRank implementation provided by graphx""",
@@ -66,6 +65,9 @@ if __name__ == "__main__":
     lines = sc.textFile(sys.argv[1], 1)
 
     # Loads all URLs from input file and initialize their neighbors.
+    # URL 1
+    #       - URL2
+    #       - URL3
     links = lines.map(lambda urls: parseNeighbors(urls)).distinct().groupByKey().cache()
 
     # Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
@@ -83,13 +85,16 @@ if __name__ == "__main__":
 
         # Re-calculates URL ranks based on neighbor contributions.
         ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * ( 1 - damping ) + damping )
+
+
+
         count = ranks.map( lambda r: ( 1, r[1] ) ) \
             .reduceByKey( lambda a, b: a if (a > b) else b )
 
         cur_max = count.collect()[0][1]
 
 
-        if( abs( cur_max - prev_max ) < 0.0001 ):
+        if( abs( cur_max - prev_max ) < 0.000001 ):
             break
         else:
             prev_max = cur_max

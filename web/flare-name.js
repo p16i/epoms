@@ -1,4 +1,11 @@
-var diameter = 960;
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+var diameter = 750;
 
 var tree = d3.layout.tree()
     .size([360, diameter / 2 - 120])
@@ -13,7 +20,8 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-d3.json("name-flare.json", function(error, root) {
+filename =  getParameterByName('file');
+d3.json( filename + ".json", function(error, root) {
   if (error) throw error;
 
   var nodes = tree.nodes(root),
@@ -46,7 +54,7 @@ d3.json("name-flare.json", function(error, root) {
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
-      .text(function(d) { return d.name; });
+      .text(function(d) { return d.name.replace(/_/g, ' '); });
 });
 
 d3.select(self.frameElement).style("height", diameter - 100 + "px");

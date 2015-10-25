@@ -61,14 +61,14 @@ class LinguisticUtility():
         return text
 
     def clean_up_tweet( self, text ):
-        tokens = text.split(' ');
+        tokens = text.replace( '\n', ' ' ).split(' ');
         res = []
         for t in tokens:
-            if( re.match(r'RT', t) ):
+            if( re.match(r'.*RT', t) ):
                 res.append('[RT]')
-            elif ( re.match(r'https?://.+', t) ):
+            elif ( re.match(r'.*http.*', t) or re.match( r'pic.twitter', t ) ):
                 res.append('[URL]')
-            elif ( re.match(r'@.+', t)):
+            elif ( re.match(r'.*@.*', t)):
                 res.append('[MENTION]')
             else:
                 res.append(t)
