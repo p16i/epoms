@@ -19,7 +19,7 @@ def ts_2_datetime( ts ):
     return datetime.datetime.fromtimestamp(float(ts)).strftime('%Y-%m-%d %H:%M:%S')
 
 
-with open( filename, 'rb') as csvfile:
+with open( filename, 'rU') as csvfile:
         tweets = csv.reader(csvfile)
         count = 1
         for row in tweets:
