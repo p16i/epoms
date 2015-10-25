@@ -1,13 +1,14 @@
 from os import listdir
 from os.path import isfile, join
 
-from epoms.config import EPOMSConfig
 from epoms.news_extraction import NewsExtraction
 from epoms.db import *
 import json
+import sys
 
 config = EPOMSConfig()
-datasource = config.get('datasource')['news']
+datasource = sys.argv[1]
+print datasource
 nn = NewsExtraction()
 
 files = []
