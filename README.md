@@ -11,12 +11,11 @@ Enterprise  Public Opinion Mining System
 ```
 pip install -r requirements.txt
 ```
-
 2. Downloads NLTK corpus.
 ```
 ./setup/nltk.py
 ```
-
+3. Import database to MySQL. You can find database snapshot at `./setup/database`
 
 ## Tasks
 ### Content Extraction and Name Recognition
