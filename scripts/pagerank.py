@@ -73,6 +73,11 @@ if __name__ == "__main__":
     # Loads all URLs with other URL(s) link to from input file and initialize ranks of them to one.
     ranks = links.map(lambda url_neighbors: (url_neighbors[0], 1.0))
 
+    total_links = ranks.count()
+    ranks = ranks.map(lambda r: (r[0], r[1]/total_links))
+
+    print( '>> Total  Link' + str(total_links) )
+
     # Calculates and updates URL ranks continuously using PageRank algorithm.
     prev_max = 0
     iteration = 1
@@ -84,7 +89,7 @@ if __name__ == "__main__":
             lambda url_urls_rank: computeContribs(url_urls_rank[1][0], url_urls_rank[1][1]))
 
         # Re-calculates URL ranks based on neighbor contributions.
-        ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * ( 1 - damping ) + damping )
+        ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * ( 1 - damping ) + damping/total_links )
 
 
 
@@ -93,6 +98,7 @@ if __name__ == "__main__":
 
         cur_max = count.collect()[0][1]
 
+        print (">> Diff "+ str(abs( cur_max-prev_max )) )
 
         if( abs( cur_max - prev_max ) < 0.000001 ):
             break
