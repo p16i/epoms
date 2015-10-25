@@ -16,7 +16,7 @@ MAX_WORKER  = 1
 config   = EPOMSConfig()
 en = EntityExtract()
 
-news = (News().select().limit(100))
+news = (News().select())
 
 for n in news:
     print '>> Extracting Entity [%5d]' % ( n.id )
@@ -24,6 +24,7 @@ for n in news:
         names = en.extract_name( n.content )
         keys = names.keys()
         for i in keys:
-            print i
+            for j in range(names[i]):
+                print i
     except Exception as exc:
         pass
