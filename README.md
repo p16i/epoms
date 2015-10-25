@@ -50,7 +50,7 @@ python scripts/extract-news.py  <part_to_source_directory>
 ./scripts/evaluation-pagerank.sh <case_name> <how_many_sentences_to_form_relationship or all>
 
 # View the result
-cd web && python -m SimpleHTTPServer &&
+cd web && python -m SimpleHTTPServer
 
 # Then open http://localhost:8000/flare-name.html?file=data/<case_name>
 ```
