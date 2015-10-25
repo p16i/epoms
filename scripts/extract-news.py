@@ -23,6 +23,7 @@ for f in files:
     try:
         doc = nn.extract_news( f )
         doc['entities'] = json.dumps(doc['entities'])
+        doc['filename'] = f
 
         n = News.create( **doc )
     except Exception as exc:
