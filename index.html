@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.node {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+body {
+    padding: 50px;
+        text-align: center;
+}
+
+#graph {
+    margin-top: 20px;
+}
+
+</style>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+<body>
+    Select Name :
+    <select id="selector">
+        <option>Philips</option>
+        <option>Braun</option>
+        <option>Panasonic</option>
+        <option>Pioneer</option>
+        <option>Samsung</option>
+    </select>
+    <div id="graph">
+
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="flare-name.js"></script>
+</body>
