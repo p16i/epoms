@@ -21,7 +21,8 @@ var svg = d3.select("#graph").append("svg:svg")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
 filename =  getParameterByName('name');
-d3.json( '/data/'+filename + ".json", function(error, root) {
+path = window.location.pathname;
+d3.json( path+'data/'+filename + ".json", function(error, root) {
   if (error) throw error;
 
   var nodes = tree.nodes(root),
