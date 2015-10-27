@@ -67,7 +67,7 @@ d3.json( path , function(error, root) {
       .text(function(d) { return d.name.replace(/_/g, ' '); });
 });
 
-d3.select(self.frameElement).style("height", diameter - 100 + "px");
+d3.select(document.frameElement).style("height", diameter - 100 + "px");
 
 $(document).ready(function(){
     $("#selector").change(function(){
