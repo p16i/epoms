@@ -22,7 +22,12 @@ var svg = d3.select("#graph").append("svg:svg")
 
 filename =  getParameterByName('name');
 path = window.location.pathname;
-d3.json( path+'data/'+filename + ".json", function(error, root) {
+if( !path.match(/index/) ) {
+    path = path+'data/'+filename + ".json";
+}else {
+    path = '/data/'+filename + ".json";
+}
+d3.json( path , function(error, root) {
   if (error) throw error;
 
   var nodes = tree.nodes(root),
@@ -68,7 +73,7 @@ $(document).ready(function(){
     $("#selector").change(function(){
         newPath = window.location + "";
         newPath = newPath.replace(/(name=)(.+)/g,'$1'+$(this).val() );
-        window.location = newPath;
+        document.location.href = newPath;
     });
 
     $("#selector option").filter(function() {
