@@ -86,3 +86,22 @@ def print_clusters():
             print(o)
         print "\n"
 
+def clusters_meta():
+    cluster_ordered_terms = km.cluster_centers_.argsort()[:, ::-1]  # sort words in cluster by proximity to centroid
+    data = []
+    
+    for i in range(num_clusters):
+        t = []
+        for term_i in cluster_ordered_terms[i, :15]:
+            top_term = vocab_df.ix[terms[term_i].split(' ')].values.tolist()[0][0]
+            top_term = str(top_term).encode('utf-8', 'ignore')
+            t.append(top_term)
+
+        tweets = []
+        for o in df.ix[i]['tweet'].values.tolist()[:30]:
+            tweets.append(o)
+        cluster = {"num": df.ix[i]['tweet'].count(), "terms": t, "tweets": tweets}
+        data.append(cluster)
+
+    return data
+
