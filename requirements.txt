@@ -35,7 +35,7 @@ numpy==1.10.0.post2
 passlib==1.6.2
 Pattern==2.6
 peewee==2.6.4
-Pillow==2.5.1
+Pillow==8.1.1
 powerline-status==2.1.4
 powerlinex-segment-git-branch-osx==0.0.0
 protobuf==2.6.1
