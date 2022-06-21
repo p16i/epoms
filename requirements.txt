@@ -31,7 +31,7 @@ netlib==0.12.1
 newspaper==0.0.9.8
 nltk==3.0.5
 normalizr==0.1.8
-numpy==1.10.0.post2
+numpy==1.22.0
 passlib==1.6.2
 Pattern==2.6
 peewee==2.6.4
